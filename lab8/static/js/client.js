@@ -10,7 +10,7 @@ $(document).ready(function() {
             data: {format: "json-list"},
             success: function(data){
 
-                console.log("Get Movies Sucessful. (HTML)")
+                console.log("Get Movies Sucessful. (JSON)")
 								$("#getContent").html(data);
 
             },
@@ -36,9 +36,27 @@ $(document).ready(function() {
         error: function(jqXHR, textStatus, errorThrown) {
             console.log("ERROR");
         }
-        });
-               
-});
+			});
+		});
+             
+			$("#getUs").click(function(e){
+				e.preventDefault();
+				
+				$.ajax({
+					url: "/ajax-GET",
+					dataType:"html",
+					type: "GET",
+					data: {format: "html-list"},
+					success: function(data) {
+						console.log("Get Us Movie successful. HTML format");
+						$("#usContent").html(data);
+						$("#getUs").css({"display":"none"});
+					},
+					error: function(jqXHR, textStatus, errorThrown) {
+						console.log("ERROR with GET US");
+					}
+				});
+			});
                           
                         
 

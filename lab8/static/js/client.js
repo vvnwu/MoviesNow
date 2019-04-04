@@ -1,4 +1,41 @@
 $(document).ready(function() {
+    //GET THE DATA
+    $('#getMovies').click(function(e){
+        e.preventDefault();
+        
+        $.ajax({
+            url: "/ajax-GET",
+            dataType:"html",
+            type: "GET",
+            data: {format: "html-list"},
+            success: function(data){
+                console.log("Get Movies Sucessful. (HTML)")
+            },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log("ERROR");
+        }
+    });
+});
+    
+    $('#getShowtimes').click(function(e){
+        e.preventDefault();
+        
+        $.ajax({
+            url: "/ajax-GET",
+            dataType:"json",
+            type: "GET",
+            data: {format: "json-list"},
+            sucess: function(data) {
+                console.log("Get Showtimes Successful. (JSON)");
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log("ERROR");
+        }
+        });
+               
+});
+                          
+                        
 
     // CLEAR THE DATE
     $('#mainMenu #clearDate').click(function(e) {

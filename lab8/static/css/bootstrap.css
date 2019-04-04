@@ -40,7 +40,13 @@
 *::after {
   box-sizing: border-box;
 }
+#getMovies {
+    display:inline-block;
+}
 
+section {
+    text-align: left;
+}
 html {
   font-family: sans-serif;
   line-height: 1.15;
@@ -59,7 +65,7 @@ body {
   font-weight: 400;
   line-height: 1.5;
   color: #212529;
-  text-align: left;
+  text-align: center;
   background-color: #fff;
 }
 

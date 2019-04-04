@@ -1,181 +1,50 @@
 $(document).ready(function() {
-    //GET THE DATA
+    
     $('#getMovies').click(function(e){
         e.preventDefault();
-        
+        $('#getMovies').css("display","none");
         $.ajax({
             url: "/ajax-GET",
             dataType:"json",
             type: "GET",
             data: {format: "json-list"},
             success: function(data){
-                console.log("Get Movies Sucessful. (json)")
-                console.log(data);
+                console.log("Get Movies Sucessful. (JSON)");
+                
+                data.forEach(function(element){
+                    image = $("<section class = 'py-5 bg-image-full'></section>").css("background-image","url("+element.banner+")");
+                    image.append($("<div></div>").css("height","200px"));
+                    
+                    section = $("<section class='py-5'></section>");
+                    text = $("<div class='container'></div>");
+                    text.append($("<h1></h1>").html(element.title), $("<p class = 'lead'></p>").html(element.details),$("<p></p>").html(element.cast), $("<p></p>").html(element.theater),$("<p></p>").html(element.showing));
+                    
+                    section.append(text);
+                    $("#content").append(image, section);
+                    
+                })
             },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log("ERROR");
-        }
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log("ERROR");
+            }
+        });
     });
-});
-    
-    $('#getShowtimes').click(function(e){
+             
+    $("#getUs").click(function(e){
         e.preventDefault();
-        
+
         $.ajax({
             url: "/ajax-GET",
             dataType:"html",
             type: "GET",
             data: {format: "html-list"},
             success: function(data) {
-                console.log("Get Showtimes Successful. (HTML)");
-                console.log(data);
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log("ERROR");
-        }
-        });
-               
-});
-                          
-                        
-
-    // CLEAR THE DATE
-    $('#mainMenu #clearDate').click(function(e) {
-        // don't allow the anchor to visit the link
-        e.preventDefault();
-        $("#p1").html("Date to go here.");
-    });
-
-    // CONTACT THE SERVER AND GET THE DATE FROM THE SERVER
-//    $('#mainMenu #getDate').click(function(e) {
-//
-//        // don't allow the anchor to visit the link
-//        e.preventDefault();
-//
-//        $.ajax({
-//            url: "/ajax-GET",
-//            dataType: "json",
-//            type: "GET",
-//            success: function(data) {
-//                $("#p1").text(data['msg']);
-//                console.log("SUCCESS:", data);
-//
-//            },
-//            error: function(jqXHR, textStatus, errorThrown) {
-//                $("#p1").text(jqXHR.statusText);
-//                console.log("ERROR:", jqXHR, textStatus, errorThrown);
-//            }
-//
-//        });
-//    });
-
-    // INTENTIONALLY GET A 404 FROM THE SERVER
-    $('#mainMenu #getBadURL').click(function(e) {
-
-        // don't allow the anchor to visit the link
-        e.preventDefault();
-
-        $.ajax({
-            url: "/ajax-GET-SOMETHING-THAT-DOESNT-EXIST",
-            dataType: "json",
-            type: "GET",
-            success: function(data) {
-                $("#p1").text(data['msg']);
-                console.log("SUCCESS:", data);
-
+                console.log("Get Us Movie successful. HTML format");
+                $("#usContent").html(data);
+                $("#getUs").css({"display":"none"});
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                $("#p1").text(jqXHR.statusText);
-                console.log("ERROR:", jqXHR, textStatus, errorThrown);
-            },
-            // handle a 404 (i.e., page not found)
-            statusCode: {
-                404: function() {
-                    $("#p1").text("Page doesn't exist.");
-                }
-            }
-        });
-    });
-
-    // GET A LIST OF 'THINGS' FROM THE SERVER AS HTML DATA
-    $('#mainMenu #getHTMLList').click(function(e) {
-
-        // don't allow the anchor to visit the link
-        e.preventDefault();
-
-        $.ajax({
-            url: "/ajax-GET-list",
-            dataType: "html",
-            type: "GET",
-            data: { format: "html-list"},
-            success: function(data) {
-                console.log("SUCCESS HTML:", data);
-                $("#content").html(data);
-
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                $("#p1").text(jqXHR.statusText);
-                console.log("ERROR:", jqXHR, textStatus, errorThrown);
-            }
-
-        });
-    });
-
-
-    // GET A LIST OF 'THINGS' FROM THE SERVER AS JSON DATA
-    $('#mainMenu #getJSONList').click(function(e) {
-
-        // don't allow the anchor to visit the link
-        e.preventDefault();
-
-        $.ajax({
-            url: "/ajax-GET-list",
-            dataType: "json",
-            type: "GET",
-            data: { format: "json-list"},
-            success: function(data) {
-                console.log("SUCCESS JSON:", data);
-                var div = $("#content");
-                let htmlStr = "<ul>";
-                for(let i = 0; i < data.length; i++) {
-                    htmlStr += "<li>" + data[i] + "</li>";
-                }
-                htmlStr += "</ul>";
-                div.html(htmlStr);
-
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                $("#p1").text(jqXHR.statusText);
-                console.log("ERROR:", jqXHR, textStatus, errorThrown);
-            }
-        });
-    });
-
-
-    // PERFORM A HTTP POST, AND GET A RESPONSE FROM THE SERVER
-    $('#submit').click(function(e) {
-        let formData = { firstName: $("#firstName").val(),
-                         lastName: $("#lastName").val(),
-                         email: $("#email").val()
-                       };
-        console.log("Form data to send:", formData);
-        $.ajax({
-            url: "/post-form",
-            dataType: "json",
-            type: "POST",
-            data: formData,
-            success: function(data) {
-                console.log("SUCCESS JSON:", data);
-                // how do we know what we are getting?
-                $("#p2").html(data[0] + " " + data[1]['firstName']
-                              + " " + data[1]['lastName']
-                              + " " + data[1]['email']
-                             );
-
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                $("#p2").text(jqXHR.statusText);
-                console.log("ERROR:", jqXHR, textStatus, errorThrown);
+                console.log("ERROR with GET US");
             }
         });
     });

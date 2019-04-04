@@ -5,12 +5,14 @@ $(document).ready(function() {
         
         $.ajax({
             url: "/ajax-GET",
-            dataType:"html",
+            dataType:"json",
             type: "GET",
-            data: {format: "html-list"},
+            data: {format: "json-list"},
             success: function(data){
+
                 console.log("Get Movies Sucessful. (HTML)")
 								$("#getContent").html(data);
+
             },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log("ERROR");
@@ -23,11 +25,13 @@ $(document).ready(function() {
         
         $.ajax({
             url: "/ajax-GET",
-            dataType:"json",
+            dataType:"html",
             type: "GET",
-            data: {format: "json-list"},
+            data: {format: "html-list"},
             success: function(data) {
-                console.log("Get Showtimes Successful. (JSON)");
+                console.log("Get Showtimes Successful. (HTML)");
+                console.log(data);
+
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log("ERROR");
@@ -67,6 +71,27 @@ $(document).ready(function() {
 
         });
     });
+//    $('#mainMenu #getDate').click(function(e) {
+//
+//        // don't allow the anchor to visit the link
+//        e.preventDefault();
+//
+//        $.ajax({
+//            url: "/ajax-GET",
+//            dataType: "json",
+//            type: "GET",
+//            success: function(data) {
+//                $("#p1").text(data['msg']);
+//                console.log("SUCCESS:", data);
+//
+//            },
+//            error: function(jqXHR, textStatus, errorThrown) {
+//                $("#p1").text(jqXHR.statusText);
+//                console.log("ERROR:", jqXHR, textStatus, errorThrown);
+//            }
+//
+//        });
+//    });
 
     // INTENTIONALLY GET A 404 FROM THE SERVER
     $('#mainMenu #getBadURL').click(function(e) {

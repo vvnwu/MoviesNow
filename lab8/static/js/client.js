@@ -12,6 +12,7 @@ $(document).ready(function() {
 
                 console.log("Get Movies Sucessful. (JSON)")
 								$("#getContent").html(data);
+								$("#getMovies").css({"display": "none"});
 
             },
         error: function(jqXHR, textStatus, errorThrown) {

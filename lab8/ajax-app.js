@@ -30,7 +30,7 @@ app.use('/css', express.static('static/css'))
 
 app.get('/ajax-GET', function (req, res) {
 
-    let formatOfRepose = req.query['format'];
+    let formatOfResponse = req.query['format'];
     let dataList = null;
     
     if(formatOfResponse == 'html-list') {

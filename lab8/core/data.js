@@ -1,6 +1,6 @@
 let someData = "<ul><li>Beep</li><li>Boop</li><li>Wednesday</li><li>Thursday</li><li>Friday</li><li>Saturday</li><li>Sunday</li></ul>";
 
-let someOtherData = ["Avengers", "Avengers", "Bavengers", "Jeudi", "Vendredi", "Samedi", "Dimanche"]
+let someOtherData = ["Avengers", "Avengers 2", "Bavengers", "Jeudi", "Vendredi", "Samedi", "Dimanche"]
 
 module.exports = {
   getHTML: function () {

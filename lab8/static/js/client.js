@@ -10,6 +10,7 @@ $(document).ready(function() {
             data: {format: "html-list"},
             success: function(data){
                 console.log("Get Movies Sucessful. (HTML)")
+								$("#getContent").html(data);
             },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log("ERROR");
@@ -25,7 +26,7 @@ $(document).ready(function() {
             dataType:"json",
             type: "GET",
             data: {format: "json-list"},
-            sucess: function(data) {
+            success: function(data) {
                 console.log("Get Showtimes Successful. (JSON)");
         },
         error: function(jqXHR, textStatus, errorThrown) {
@@ -57,7 +58,7 @@ $(document).ready(function() {
             success: function(data) {
                 $("#p1").text(data['msg']);
                 console.log("SUCCESS:", data);
-
+							
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 $("#p1").text(jqXHR.statusText);
@@ -80,6 +81,7 @@ $(document).ready(function() {
             success: function(data) {
                 $("#p1").text(data['msg']);
                 console.log("SUCCESS:", data);
+							
 
             },
             error: function(jqXHR, textStatus, errorThrown) {

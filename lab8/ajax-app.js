@@ -23,16 +23,31 @@ app.get('/', function (req, res) {
     res.send(doc);
 });
 
+app.use('/vendor', express.static('static/vendor'))
 app.use('/js', express.static('static/js'))
 app.use('/css', express.static('static/css'))
 
+
 app.get('/ajax-GET', function (req, res) {
 
-    // set the type of response:
-    res.setHeader('Content-Type', 'application/json');
-    let d = new Date();
+    let formatOfRepose = req.query['format'];
+    let dataList = null;
+    
+    if(formatOfResponse == 'html-list') {
 
-    res.send({ msg: d });
+        res.setHeader('Content-Type', 'text/html');
+        dataList = lists.getHTML();
+        res.send(dataList);
+
+    } else if(formatOfResponse == 'json-list') {
+
+        res.setHeader('Content-Type', 'application/json');
+        dataList = lists.getJSON();
+        res.send(dataList);
+
+    } else {
+        res.send({msg: 'Wrong format!'});
+    }
 
 })
 
